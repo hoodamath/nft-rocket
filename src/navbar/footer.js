@@ -13,25 +13,23 @@ const Footer = () => (
   >
     <Col xs="12" md="12" lg="6" className="text-center">
       <div style={{ color: "#fff" }}>
-        View source:{" "}
         <a
-          href="https://github.com/swaroopmaddu/solana-nft-gallery"
+          href="https://twitter.com/wenbread"
           style={{ color: "#fff" }}
         >
-          Github
+          Twitter
         </a>
       </div>
     </Col>
 
     <Col xs="12" md="12" lg="6" className="text-center">
       <div style={{ color: "#fff" }}>
-        © 2022 Copyright:{" "}
         <a
-          href="https://swaroopmaddu.github.io/"
+          href="https://discord.com/invite/EZ3csTG6vh"
           target={'_blank'}
           style={{ color: "#fff" }} rel="noreferrer"
         >
-          Swaroop Maddu
+          Discord
         </a>
       </div>
     </Col>

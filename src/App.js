@@ -84,7 +84,7 @@ function App(props) {
       }
     }
     setGroupedNfts(group);
-    console.log(group);
+    //console.log(group);
   
     setLoading(false);
     return setNfts(metadatas);
@@ -92,18 +92,28 @@ function App(props) {
 
   const fetchMetadata = async (nftArray) => {
     let metadatas = [];
+    var enough = 1;
     for (const nft of nftArray) {
-      console.log(nft);
+      //console.log(nft);
       try {
         await fetch(nft.data.uri)
         .then((response) => response.json())
-        .then((meta) => { 
-          metadatas.push({...meta, ...nft});
+        .then((meta) => {
+          //console.log(nft.data.creators[0].address);
+          if (nft.data.creators[0].address === "A4Y2QeSFkXPBJhFAor9YoBxaLZhKbdbB8SUPpWZ1ezDX" ||
+           nft.data.creators[0].address === "DgDQqjGSB51ZjgETi4We1vPRy2YJ1TH1Vf2xuqrUn6WD" || 
+           nft.data.creators[0].address === "DZNnyXF4YvCgWoiLR6JUyYQssSwrqzG96frVbkc3RXka"){ 
+            if (enough < 21) {
+              metadatas.push({...meta, ...nft});
+              enough++;
+            }
+          } 
         });
       } catch (error) {
         console.log(error);
       }
     }
+    //console.log(metadatas);
     return metadatas;
   };
 
@@ -125,7 +135,7 @@ function App(props) {
             onClick={getNfts}
           >
             {" "}
-            Get NFTs from {props.title}{" "}
+            Get Chill NFT Projects (20 Max)
           </Button>
         </Col>
         <Col lg="1"></Col>
@@ -181,7 +191,9 @@ function App(props) {
                     <Card.Body>
                       <span>
                         <Card.Title style={{ color: "#fff" }}>
-                          {metadata}
+                          {
+                            metadata
+                          }
                         </Card.Title>
                         <Badge
                           pill
@@ -207,7 +219,7 @@ function App(props) {
               <Col xs="12" md="6" lg="2" key={index}>
                 <Card
                   onClick={() => {
-                    console.log(nfts.length);
+                    //console.log(nfts.length);
                   }}
                   className="imageGrid"
                   lg="3"

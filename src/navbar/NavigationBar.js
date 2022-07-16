@@ -30,7 +30,7 @@ const Navigationbar = (props) => {
         <Navbar.Brand href="#home" style={{ color: "#fff" }}>
           NFT Rocket
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{ backgroundColor: "#FFFFFF" }} variant="dark" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" variant="dark" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
           <Nav>

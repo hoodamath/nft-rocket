@@ -270,9 +270,41 @@ function App(props) {
                 <Col lg="2" style={{width: "100%"}}>
                   <div className="rocket">
                       <center>
-                        <div style={{width:"244px",height:"428px",position:"relative"}}>
+                        <div style={{width:"171px",height:"300px",position:"relative"}}>
                           <img src={nft} alt="your nft" style={{zIndex:1,position:"absolute",top:"75px",left:"35px",height:"100px",width:"100px"}} />
                           <img src="rocket.png" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"171px",height:"300px"}} />
+                        </div>
+                        <Button
+                          variant={props.variant.toLowerCase()}
+                          type="submit"
+                          onClick={() => {
+                            if (Math.random() < 0.5){
+                              setView("you-win");
+                            }
+                            else {
+                              setView("you-lose");
+                            } 
+                          }}
+                        >
+                          Play Practice Game
+                        </Button>
+                      </center>
+                  </div>
+                </Col>
+              )
+            }
+        </Row>
+      }
+      {
+        <Row>
+            { !loading &&
+              view === "you-win" &&
+              (
+                <Col lg="2" style={{width: "100%"}}>
+                  <div className="rocket">
+                      <center>
+                      <div style={{width:"300px",height:"300px",position:"relative"}}>
+                          <img src="rocketwin.gif" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"300px",height:"300px"}} />
                         </div>
                         <Button
                           variant={props.variant.toLowerCase()}
@@ -290,7 +322,33 @@ function App(props) {
             }
         </Row>
       }
-
+      {
+        <Row>
+            { !loading &&
+              view === "you-lose" &&
+              (
+                <Col lg="2" style={{width: "100%"}}>
+                  <div className="rocket">
+                      <center>
+                        <div style={{width:"300px",height:"300px",position:"relative"}}>
+                          <img src="rocketlose.gif" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"300px",height:"300px"}} />
+                        </div>
+                        <Button
+                          variant={props.variant.toLowerCase()}
+                          type="submit"
+                          onClick={() => {
+                            setView("collection");
+                          }}
+                        >
+                          Play Again?
+                        </Button>
+                      </center>
+                  </div>
+                </Col>
+              )
+            }          
+        </Row>
+      }            
       {show && (
         <AlertDismissible title={title} message={message} setShow={setShow} />
       )}

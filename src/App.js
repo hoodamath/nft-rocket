@@ -271,8 +271,8 @@ function App(props) {
                   <div className="rocket">
                       <center>
                         <div style={{width:"244px",height:"428px",position:"relative"}}>
-                          <img src={nft} alt="your nft" style={{zIndex:1,position:"absolute",top:"100px",left:"45px",height:"150px",width:"150px"}} />
-                          <img src="rocket.png" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"244px",height:"428px"}} />
+                          <img src={nft} alt="your nft" style={{zIndex:1,position:"absolute",top:"75px",left:"35px",height:"100px",width:"100px"}} />
+                          <img src="rocket.png" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"171px",height:"300px"}} />
                         </div>
                         <Button
                           variant={props.variant.toLowerCase()}

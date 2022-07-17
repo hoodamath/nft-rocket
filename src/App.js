@@ -271,7 +271,7 @@ function App(props) {
                   <div className="rocket">
                       <center>
                         <div style={{width:"244px",height:"428px",position:"relative"}}>
-                          <img src={nft} alt="your nft" style={{zIndex:1,position:"absolute",top:"155px",left:"100px",height:"50px",width:"50px"}} />
+                          <img src={nft} alt="your nft" style={{zIndex:1,position:"absolute",top:"100px",left:"45px",height:"150px",width:"150px"}} />
                           <img src="rocket.png" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"244px",height:"428px"}} />
                         </div>
                         <Button

@@ -9,6 +9,7 @@ const Footer = () => (
       padding: "10px",
       width: "110%",
       backgroundColor: "#111827",
+      zIndex: "5",
     }}
   >
     <Col xs="12" md="12" lg="6" className="text-center">

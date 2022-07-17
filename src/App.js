@@ -15,6 +15,7 @@ function App(props) {
   // state change
   useEffect(() => {
     setNfts([]);
+    setNft("");
     setView("collection");
     setGroupedNfts([]);
     setShow(false);
@@ -31,9 +32,11 @@ function App(props) {
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
 
+  //mikes
+  const [nft, setNft] = useState("");
+
   //loading props
   const [loading, setLoading] = useState(false);
-
 
   const getNfts = async (e) => {
     e.preventDefault();
@@ -213,6 +216,18 @@ function App(props) {
 
       {
         <Row>
+            { !loading &&
+              view === "nft-grid" &&
+              (
+                <Col lg="2" style={{width: "32%"}}>
+                  <div className="rocket">
+                      <center>Select NFT to ride Rocket 
+                      <img src="rocket.png" alt="rocket" />
+                      </center>
+                  </div>
+                </Col>
+              )
+            }
           {!loading &&
             view === "nft-grid" &&
             nfts.map((metadata, index) => (
@@ -220,6 +235,8 @@ function App(props) {
                 <Card
                   onClick={() => {
                     //console.log(nfts.length);
+                    setView("rocket-launch");
+                    setNft(metadata?.image);
                   }}
                   className="imageGrid"
                   lg="3"
@@ -243,6 +260,34 @@ function App(props) {
                 </Card>
               </Col>
             ))}
+        </Row>
+      }
+      {
+        <Row>
+            { !loading &&
+              view === "rocket-launch" &&
+              (
+                <Col lg="2" style={{width: "100%"}}>
+                  <div className="rocket">
+                      <center>
+                        <div style={{width:"244px",height:"428px",position:"relative"}}>
+                          <img src={nft} alt="your nft" style={{zIndex:1,position:"absolute",top:"155px",left:"100px",height:"50px",width:"50px"}} />
+                          <img src="rocket.png" alt="rocket" style={{zIndex:2,position:"absolute",left:"0px",top:"0px",width:"244px",height:"428px"}} />
+                        </div>
+                        <Button
+                          variant={props.variant.toLowerCase()}
+                          type="submit"
+                          onClick={() => {
+                            setView("collection");
+                          }}
+                        >
+                          Play Again?
+                        </Button>
+                      </center>
+                  </div>
+                </Col>
+              )
+            }
         </Row>
       }
 

@@ -105,10 +105,14 @@ function App(props) {
           //console.log(nft.data.creators[0].address);
           if (nft.data.creators[0].address === "A4Y2QeSFkXPBJhFAor9YoBxaLZhKbdbB8SUPpWZ1ezDX" ||
            nft.data.creators[0].address === "DgDQqjGSB51ZjgETi4We1vPRy2YJ1TH1Vf2xuqrUn6WD" || 
-           nft.data.creators[0].address === "DZNnyXF4YvCgWoiLR6JUyYQssSwrqzG96frVbkc3RXka"){ 
+           nft.data.creators[0].address === "DZNnyXF4YvCgWoiLR6JUyYQssSwrqzG96frVbkc3RXka" ||
+           nft.data.creators[0].address === "5tQWVjGPztym1zhc8bErmac4DeK2toe6JvcG4fGY9wjx"){ 
             if (enough < 21) {
               metadatas.push({...meta, ...nft});
               enough++;
+              if (enough === 21) {
+                nft = nftArray;
+              }
             }
           } 
         });
@@ -278,7 +282,7 @@ function App(props) {
                           variant={props.variant.toLowerCase()}
                           type="submit"
                           onClick={() => {
-                            if (Math.random() < 0.5){
+                            if (Math.random() < 0.9){
                               setView("you-win");
                             }
                             else {

@@ -1,12 +1,15 @@
 import './App.css';
-import { useEffect, useRef, useState } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
+import React, { useEffect, useRef, useState, FC, useCallback } from 'react';
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { getParsedNftAccountsByOwner, isValidSolanaAddress, createConnectionConfig, } from "@nfteyez/sol-rayz";
 import { Col, Row, Button, Form, Card, Badge } from "react-bootstrap";
 import AlertDismissible from './alert/alertDismissible';
+//extras for send transaction
+import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
+import { Keypair, SystemProgram, Transaction } from '@solana/web3.js';
 
 function App(props) {
-  const { publicKey } = useWallet();
+  const { publicKey, sendTransaction } = useWallet();
   const { connection } = props;
 
   // input ref
@@ -281,13 +284,66 @@ function App(props) {
                         <Button
                           variant={props.variant.toLowerCase()}
                           type="submit"
-                          onClick={() => {
-                            if (Math.random() < 0.9){
-                              setView("you-win");
+                          onClick={async() => {
+                            //get a signature to pop-up on wallet first and then only go forward if they agree
+                            /*var web3 = require("@solana/web3.js");
+                            const recieverWallet = new web3.PublicKey("25ttcjA1saKR7YJA8o4BWKEQKAyFS5cFD41pBnJX2Kb5");
+                            const transaction = new web3.Transaction().add(
+                              web3.SystemProgram.transfer({
+                                fromPubkey: publicKey,
+                                toPubkey: recieverWallet,
+                                lamports: 1000,
+                              })
+                            );*/
+                            
+                            //const signature = await sendTransaction(transaction, connection);
+                            /*const signature = await sendTransaction(connection, transaction);
+                            
+                            await connection.confirmTransaction(signature, "processed");*/
+
+
+
+                            //how about just a signature for playing
+                            var playGame = false;
+                            try {
+                              const encodedMessage = new TextEncoder().encode("You may LOSE your chill nft OR WIN another chill nft");
+                              const signedMessage = await window.solana.request({
+                                method: "signMessage",
+                                params: {
+                                  message: encodedMessage,
+                                  display: "utf8", //hex,utf8
+                                },
+                              });
+                              playGame = true;
+                              console.log(signedMessage.signature.length);
+                            } catch (err) {
+                              console.log(err);
+                              //playGame = false;
+                            }
+                            console.log(playGame);
+
+                            //console.log(err.length);
+
+                            /*console.log(signedMessage);
+                            console.log(signedMessage.signature.length);*/
+
+                            if (playGame){
+                              console.log("play");
+                              if (Math.random() < 0.9){
+                                setView("you-win");
+                              }
+                              else {
+                                setView("you-lose");
+                              }
                             }
                             else {
-                              setView("you-lose");
-                            } 
+                              console.log("start over");
+                              setView("collection");
+                            }
+
+                            
+
+                            
                           }}
                         >
                           Play Practice Game
@@ -361,3 +417,4 @@ function App(props) {
 }
 
 export default App;
+

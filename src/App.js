@@ -6,10 +6,13 @@ import { Col, Row, Button, Form, Card, Badge } from "react-bootstrap";
 import AlertDismissible from './alert/alertDismissible';
 //extras for send transaction
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
-import { Keypair, SystemProgram, Transaction } from '@solana/web3.js';
+import { Keypair, SystemProgram, Transaction, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
+import { toast } from 'react-hot-toast';
+
 
 function App(props) {
-  const { publicKey, sendTransaction } = useWallet();
+  const { publicKey, signTransaction, sendTransaction } = useWallet();
   const { connection } = props;
 
   // input ref
@@ -285,6 +288,59 @@ function App(props) {
                           variant={props.variant.toLowerCase()}
                           type="submit"
                           onClick={async() => {
+
+                              //lets try sending some SOL atleast
+
+                              /*const toPublicKey = new PublicKey('25ttcjA1saKR7YJA8o4BWKEQKAyFS5cFD41pBnJX2Kb5');
+
+                              const transaction = new Transaction().add(
+                                SystemProgram.transfer({
+                                  fromPubkey: publicKey,
+                                  toPubkey: toPublicKey,
+                                  lamports: 1,
+                                })
+                              );
+                              
+                              const signature = await sendTransaction(transaction, connection);
+                              
+                              await connection.confirmTransaction(signature, "processed");*/
+
+                              //send spl token
+
+                              /*const toPublicKey = new PublicKey('25ttcjA1saKR7YJA8o4BWKEQKAyFS5cFD41pBnJX2Kb5') //solflare wallet
+                              const mint = new PublicKey('4smxcHq7hfmHqRD42MJ3jfdvAJBLCrXhwoEu2toTTguh') //mcD boat
+                              const myToken = new Token(
+                                connection,
+                                mint,
+                                TOKEN_PROGRAM_ID,
+                                publicKey
+                            );
+                              console.log(myToken);*/
+                             /* const fromTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+                                publicKey
+                            )
+                            const toTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+                                toPublicKey
+                            )
+                            console.log(fromTokenAccount);
+                            console.log(toTokenAccount);*/
+
+                             /* const transaction = new Transaction().add(
+                                Token.createTransferInstruction(
+                                  TOKEN_PROGRAM_ID,
+                                  publicKey,
+                                  toPublicKey,
+                                  myToken,
+                                  [],
+                                  1
+                                )
+                              );
+                              
+                              const signature = await sendTransaction(transaction, connection);
+                              
+                              await connection.confirmTransaction(signature, "processed");*/
+
+
                             //get a signature to pop-up on wallet first and then only go forward if they agree
                             /*var web3 = require("@solana/web3.js");
                             const recieverWallet = new web3.PublicKey("25ttcjA1saKR7YJA8o4BWKEQKAyFS5cFD41pBnJX2Kb5");
@@ -303,7 +359,51 @@ function App(props) {
 
 
 
-                            //how about just a signature for playing
+                            
+
+                            //console.log(err.length);
+
+                            /*console.log(signedMessage);
+                            console.log(signedMessage.signature.length);*/
+
+                            //attempted token from wallet to transfer
+                            /*const toastId = toast.loading('Processing transaction...');
+                            
+                            try {
+                              if (!publicKey) throw new WalletNotConnectedError()
+                              const toPublicKey = new PublicKey('25ttcjA1saKR7YJA8o4BWKEQKAyFS5cFD41pBnJX2Kb5') //solflare wallet
+                              const mint = new PublicKey('4smxcHq7hfmHqRD42MJ3jfdvAJBLCrXhwoEu2toTTguh') //mcD boat
+                              const payer = '????' // how to get this Signer
+                              const token = new Token(connection, mint, TOKEN_PROGRAM_ID, payer)
+                              const fromTokenAccount = await token.getOrCreateAssociatedAccountInfo(publicKey)
+                              const toTokenAccount = await token.getOrCreateAssociatedAccountInfo(toPublicKey)
+              
+                              const transaction = new Transaction().add(
+                                  Token.createTransferInstruction(
+                                      TOKEN_PROGRAM_ID,
+                                      fromTokenAccount.address,
+                                      toTokenAccount.address,
+                                      publicKey,
+                                      [],
+                                      1
+                                  )
+                              )
+              
+                              const signature = await sendTransaction(transaction, connection)
+              
+                              const response = await connection.confirmTransaction(signature, 'processed')
+                              console.log('response', response)
+                              toast.success('Transaction sent', {
+                                  id: toastId,
+                              })
+                          } catch (error) {
+                              toast.error(`Transaction failed: ${error.message}`, {
+                                  id: toastId,
+                              })
+                          }*/
+
+
+                          //how about just a signature for playing
                             var playGame = false;
                             try {
                               const encodedMessage = new TextEncoder().encode("You may LOSE your chill nft OR WIN another chill nft");
@@ -322,11 +422,7 @@ function App(props) {
                             }
                             console.log(playGame);
 
-                            //console.log(err.length);
-
-                            /*console.log(signedMessage);
-                            console.log(signedMessage.signature.length);*/
-
+                            //commented out while trying to add transaction before game
                             if (playGame){
                               console.log("play");
                               if (Math.random() < 0.9){
